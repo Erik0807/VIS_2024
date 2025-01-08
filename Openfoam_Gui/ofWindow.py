@@ -8,7 +8,7 @@ import vtk
 from PySide6.QtGui import QAction, QKeySequence
 from PySide6.QtWidgets import QMainWindow
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
-import Openfoam_Gui.ofDialog as ofDialog
+import ofDialog as ofDialog
 
 #===================================================================================
 #                               KLASSE - ofWindow                                 #
