@@ -35,8 +35,8 @@ class ofWindow(QMainWindow):
     
         # File-Menü anlegen
         #------------------
-        self.menu = self.menuBar()
-        self.file_menu = self.menu.addMenu("File")
+        self.fileMenu = self.menuBar()
+        self.file_menu = self.fileMenu.addMenu("File")
 
         # Load-Aktion definieren
         #-----------------------
@@ -70,7 +70,7 @@ class ofWindow(QMainWindow):
         # Statusleiste
         #-------------
         self.status = self.statusBar()
-        self.status.showMessage("Freedyn startklar")
+        self.status.showMessage("OpenFoam startklar")
 
         # Interaktion mit VTK
         #--------------------
