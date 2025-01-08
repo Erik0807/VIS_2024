@@ -10,7 +10,7 @@ from pathlib import Path
 #                                  MAIN-FILE                                    #
 #================================================================================
 
-if __name__ == "__OpenFoam__":
+if __name__ == "__main__":
 
     # Qt-Anwendung
     #=============
