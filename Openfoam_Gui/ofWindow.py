@@ -39,7 +39,7 @@ class ofWindow(QMainWindow):
         self.file_menu = self.menu.addMenu("File")
         self.sys_menu = self.menu.addMenu("system")
         self.const_menu = self.menu.addMenu("constant")
-        self.RB_menu = self.menu.addMenu("0")
+        self.RB_menu = self.menu.addMenu("Randbedingungen")
         #--------------------------------------------------------------------------
 
         # Funktionen im File-Menü
@@ -73,6 +73,29 @@ class ofWindow(QMainWindow):
         self.sys_menu.addAction(controlDict_action)
         self.sys_menu.addAction(fvSchemes_action)
         self.sys_menu.addAction(fvSolution_action)
+        #--------------------------------------------------------------------------
+
+        # Funktionen im constant-Menü
+        #----------------------------
+        thermo_action = QAction("thermophysicalProperties", self)
+        turbulence_action = QAction("turbulenceProperties", self)
+
+        # Aktionen zu system-Menü hinzufügen
+        self.const_menu.addAction(thermo_action)
+        self.const_menu.addAction(turbulence_action)
+        #--------------------------------------------------------------------------
+
+        # Funktionen im Randbedingungen-Menü
+        #-----------------------------------
+        p_action = QAction("p", self)
+        U_action = QAction("U", self)
+        T_action = QAction("T", self)
+
+        # Aktionen zu system-Menü hinzufügen
+        self.RB_menu.addAction(p_action)
+        self.RB_menu.addAction(U_action)
+        self.RB_menu.addAction(T_action)
+        #--------------------------------------------------------------------------
 
         # Statusleiste
         #-------------
