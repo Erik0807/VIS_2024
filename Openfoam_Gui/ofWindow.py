@@ -33,39 +33,46 @@ class ofWindow(QMainWindow):
         # Initialisiere Instanzvariable für das VTK-Widget
         self.vtkWidget = None
     
-        # File-Menü anlegen
-        #------------------
-        self.fileMenu = self.menuBar()
-        self.file_menu = self.fileMenu.addMenu("File")
+        # Menüleiste anlegen (File, system, constant, 0)
+        #-----------------------------------------------
+        self.menu = self.menuBar()
+        self.file_menu = self.menu.addMenu("File")
+        self.sys_menu = self.menu.addMenu("system")
+        self.const_menu = self.menu.addMenu("constant")
+        self.RB_menu = self.menu.addMenu("0")
+        #--------------------------------------------------------------------------
 
+        # Funktionen im File-Menü
+        #------------------------
         # Load-Aktion definieren
-        #-----------------------
         load_action = QAction("Load", self)
         load_action.triggered.connect(lambda: self.load(widget))
 
         # Speicher-Aktion definieren
-        #--------------------------
         save_action = QAction("Save", self)
         save_action.triggered.connect(lambda: self.save())
 
-        # Import-Aktion definieren (Achtung: lambda für callable Aktion, sonst wird
-        # diese sofort ausgeführt)
-        #-------------------------
-        importFdd_action = QAction("importFdd", self)
-        importFdd_action.triggered.connect(lambda: self.importFdd(widget))
-
         # Exit-Aktion definieren
-        #-----------------------
         exit_action = QAction("Exit", self)
         exit_action.setShortcut(QKeySequence.Quit)
         exit_action.triggered.connect(self.close)
 
         # Aktionen zu File-Menü hinzufügen
-        #---------------------------------
         self.file_menu.addAction(load_action)
         self.file_menu.addAction(save_action)
-        self.file_menu.addAction(importFdd_action)
         self.file_menu.addAction(exit_action)
+        #--------------------------------------------------------------------------
+
+        # Funktionen im system-Menü
+        #--------------------------
+        controlDict_action = QAction("controlDict", self)
+        fvSchemes_action = QAction("fvSchemes", self)
+        fvSolution_action = QAction("fvSolution", self)
+
+        # Aktionen zu system-Menü hinzufügen
+        self.sys_menu.addAction(controlDict_action)
+        self.sys_menu.addAction(fvSchemes_action)
+        self.sys_menu.addAction(fvSolution_action)
 
         # Statusleiste
         #-------------
