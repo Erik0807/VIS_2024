@@ -44,6 +44,9 @@ class ofWindow(QMainWindow):
 
         # Funktionen im File-Menü
         #------------------------
+        # SetCase-Aktion, um Ordnerstruktur aufzusetzen
+        setCase_action = QAction("Set Case", self)
+
         # Load-Aktion definieren
         load_action = QAction("Load", self)
         load_action.triggered.connect(lambda: self.load(widget))
@@ -58,6 +61,7 @@ class ofWindow(QMainWindow):
         exit_action.triggered.connect(self.close)
 
         # Aktionen zu File-Menü hinzufügen
+        self.file_menu.addAction(setCase_action)
         self.file_menu.addAction(load_action)
         self.file_menu.addAction(save_action)
         self.file_menu.addAction(exit_action)
@@ -129,46 +133,15 @@ class ofWindow(QMainWindow):
         self.interactor.Initialize()
     #=======================================================================================
 
-    # Fkt. - importFdd
-    #=================
-    def importFdd(self, widget):
+    # Fkt. - setCase
+    #===============
+    def setCase(self):
         '''
         Fkt.-Beschreibung:
-        \t importFdd liest ein fdd-File ein und visualisiert dieses
-        \n
-        Input-Variablen:
-        \t widget...Objekt vom Typ QWidget oder einer abgeleiteten Klasse
+        \t setCase legt die benötigte Ordnerstruktur eines Openfoam-Cases an
+           (system, constant, 0)
         '''
-        # Überprüfen, ob schon ein vtk-Widget existiert (wenn nicht -> Widget erstellen)
-        if not self.vtkWidget:
-            self.loadVTKbackGround(widget)
 
-        # Funktion zum Dialog-Aufruf und Modell-Import aufrufen
-        self.importModel()
-
-        # Nachricht in Statusleiste
-        self.status.showMessage("Fdd-File eingelesen")
-    #=======================================================================================
-
-    # Fkt. - load
-    #============
-    def load(self, widget):
-        '''
-        Fkt.-Beschreibung:
-        \t load lädt ein json-File und visualisiert dieses
-        \n
-        Input-Variablen:
-        \t widget...Objekt vom Typ QWidget oder einer abgeleiteten Klasse
-        '''
-         # Überprüfen, ob schon ein vtk-Widget existiert (wenn nicht -> Widget erstellen)
-        if not self.vtkWidget:
-            self.loadVTKbackGround(widget)
-
-        self.importModel()
-
-        # Nachricht in Statusleiste
-        self.status.showMessage("Freedyn-Modell geladen")
-    #=======================================================================================
 
     # Fkt. - save
     #============
@@ -203,39 +176,4 @@ class ofWindow(QMainWindow):
             self.status.showMessage("Freedyn-Modell gespeichert")
     #=======================================================================================
 
-    # Fkt. - importModel
-    #===================
-    def importModel(self):
-        '''
-        Fkt.-Beschreibung:
-        \t importModel lädt die gewählte Datei und visualiesiert diese im vtk-Widget. Es wird
-           dabei zwischen fdd-Files und json-Files unterschieden
-        '''
-       # Objekt vom Typ mbsModel anlegen
-        self.mbsModel = mbsModel.mbsModel()
-
-        # Aufrufen des Dialogs
-        self.dialog = ofDialog.mbsDialog()
-        self.dialog.exec()
-
-        # Abspeichern des .fdd-Pfades
-        self.file_path = self.dialog.getFilepath()
-
-        # Abspeichern der Dateiendung
-        file_name, file_extension = os.path.splitext(self.file_path)
-
-        # Import eines fdd-Files bei Endung .fdd
-        if file_extension == ".fdd":
-            # .fdd-File einlesen und anzeigen
-            self.mbsModel.importFddFile(self.file_path)
-            self.mbsModel.showModel(self.renderer)
-        
-        # Import eines json-Files bei Endung .json
-        elif file_extension == ".json":
-            self.mbsModel.loadDatabase(self.file_path)
-            self.mbsModel.showModel(self.renderer)
-
-        # Fehlermeldung bei anderer Endung
-        else:
-            print("Wrong file type: " + file_extension)
-            return False
+    
