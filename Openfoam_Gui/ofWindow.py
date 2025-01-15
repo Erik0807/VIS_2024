@@ -9,6 +9,7 @@ from PySide6.QtGui import QAction, QKeySequence
 from PySide6.QtWidgets import QMainWindow
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import ofDialog as ofDialog
+import setCaseDialog as setCaseDialog
 
 #===================================================================================
 #                               KLASSE - ofWindow                                 #
@@ -133,7 +134,7 @@ class ofWindow(QMainWindow):
            (system, constant, 0)
         '''
         # Aufrufen des Dialogs (für case-Pfad)
-        self.dialog = ofDialog.ofDialog()
+        self.dialog = setCaseDialog.setCaseDialog()
         self.dialog.exec()
 
         # Abspeichern des case-Pfads

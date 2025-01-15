@@ -21,17 +21,9 @@ class ofDialog(QDialog):
         self.file_path = ""
 
         # Fenster anlegen
-        self.setWindowTitle("Set Case-Structure")
         self.setLayout(QVBoxLayout())
-        
-        # Aufforderung an User
-        self.label = QLabel("Bitte geben Sie den Pfad zu ihrem Case ein:")
-        self.layout().addWidget(self.label)
 
-        # Eingabefeld
-        self.input_field = QLineEdit()
-        self.input_field.setPlaceholderText("Pfad/zu/meinem/case")
-        self.layout().addWidget(self.input_field)
+        
 
         # Erzeugen eines Ok- und Close-Buttons nebeneinander
         button_layout = QHBoxLayout()
@@ -41,9 +33,7 @@ class ofDialog(QDialog):
         button_layout.addWidget(self.close_button)
         self.layout().addLayout(button_layout)
 
-        # Buttonverbindungen
-        self.ok_button.clicked.connect(self.getInput)
-        self.close_button.clicked.connect(self.reject)
+        
     #=======================================================================================
 
     # Fkt. - getInput
