@@ -23,8 +23,6 @@ class ofDialog(QDialog):
         # Fenster anlegen
         self.setLayout(QVBoxLayout())
 
-        
-
         # Erzeugen eines Ok- und Close-Buttons nebeneinander
         button_layout = QHBoxLayout()
         self.ok_button = QPushButton("OK")
@@ -32,8 +30,6 @@ class ofDialog(QDialog):
         button_layout.addWidget(self.ok_button)
         button_layout.addWidget(self.close_button)
         self.layout().addLayout(button_layout)
-
-        
     #=======================================================================================
 
     # Fkt. - getInput

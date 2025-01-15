@@ -10,6 +10,7 @@ from PySide6.QtWidgets import QMainWindow
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import ofDialog as ofDialog
 import setCaseDialog as setCaseDialog
+import controlDictDialog as controlDictDialog
 
 #===================================================================================
 #                               KLASSE - ofWindow                                 #
@@ -62,6 +63,8 @@ class ofWindow(QMainWindow):
         # Funktionen im system-Menü
         #--------------------------
         controlDict_action = QAction("controlDict", self)
+        controlDict_action.triggered.connect(lambda: self.writeControlDict())
+
         fvSchemes_action = QAction("fvSchemes", self)
         fvSolution_action = QAction("fvSolution", self)
 
@@ -152,3 +155,14 @@ class ofWindow(QMainWindow):
         constant.mkdir(parents = True, exist_ok = True)
         dir0.mkdir(parents = True, exist_ok = True)
     #=======================================================================================
+
+    # Fkt. - writeControlDict
+    def writeControlDict(self):
+        '''
+        Fkt.-Beschreibung:
+        \t writeControlDict öffnet einen Q-Dialog mit versch. Dropdown-Menüs zum 
+           controlDict. Bei Klick auf ok wird ein Textfile in den system-Ordner gespeichert.
+        '''
+        # Aufrufen des Dialogs (für case-Pfad)
+        self.dialog = controlDictDialog.controlDictDialog()
+        self.dialog.exec()
