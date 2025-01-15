@@ -21,8 +21,12 @@ class controlDictDialog(ofDialog):
         # Titel des Fensters
         self.setWindowTitle("controlDict")
 
+        # Application
+        self.label = QLabel("apllication")
+        self.layout().insertWidget(0, self.label)
+
         # Dropdown-Menü (QComboBox)
         self.dropdown = QComboBox()
-        self.dropdown.addItems(["Option 1", "Option 2", "Option 3"])  # Menüeinträge hinzufügen
-        self.layout().addWidget(self.dropdown)
+        self.dropdown.addItems(["icoFoam", "simpleFoam", "pimpleFoam"])  # Menüeinträge hinzufügen
+        self.layout().insertWidget(1, self.dropdown)
 
