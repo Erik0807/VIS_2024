@@ -46,10 +46,7 @@ class ofWindow(QMainWindow):
         #------------------------
         # SetCase-Aktion, um Ordnerstruktur aufzusetzen
         setCase_action = QAction("Set Case", self)
-
-        # Load-Aktion definieren
-        load_action = QAction("Load", self)
-        load_action.triggered.connect(lambda: self.load(widget))
+        setCase_action.triggered.connect(lambda: self.setCase())
 
         # Speicher-Aktion definieren
         save_action = QAction("Save", self)
@@ -62,7 +59,6 @@ class ofWindow(QMainWindow):
 
         # Aktionen zu File-Menü hinzufügen
         self.file_menu.addAction(setCase_action)
-        self.file_menu.addAction(load_action)
         self.file_menu.addAction(save_action)
         self.file_menu.addAction(exit_action)
         #--------------------------------------------------------------------------
@@ -141,6 +137,28 @@ class ofWindow(QMainWindow):
         \t setCase legt die benötigte Ordnerstruktur eines Openfoam-Cases an
            (system, constant, 0)
         '''
+
+        # Aufrufen des Dialogs (für case-Pfad)
+        self.dialog = ofDialog.ofDialog()
+        self.dialog.exec()
+
+        # Abspeichern des case-Pfads
+        self.file_path = Path(self.dialog.getFilepath()).resolve()
+        print(self.file_path)
+
+        # Anlegen des Case-Ordners und der 3 Unterordner
+        Case = Path(self.file_path) / "case"
+        print(Case)
+        system = Path(self.file_path) / "case/system"
+        constant = Path(self.file_path) / "case/constant"
+        dir0 = Path(self.file_path) / "case/0"
+
+        # Erstellen des Case-Ordners und der 3 Unterordner
+        Case.mkdir(parents = True, exist_ok = True)
+        system.mkdir(parents = True, exist_ok = True)
+        constant.mkdir(parents = True, exist_ok = True)
+        dir0.mkdir(parents = True, exist_ok = True)
+    #=======================================================================================
 
 
     # Fkt. - save
