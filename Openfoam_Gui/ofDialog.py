@@ -21,16 +21,16 @@ class ofDialog(QDialog):
         self.file_path = ""
 
         # Fenster anlegen
-        self.setWindowTitle("Import Freedyn-File")
+        self.setWindowTitle("Set Case-Structure")
         self.setLayout(QVBoxLayout())
         
         # Aufforderung an User
-        self.label = QLabel("Bitte geben Sie den Pfad zu ihrem Freedyn-File ein:")
+        self.label = QLabel("Bitte geben Sie den Pfad zu ihrem Case ein:")
         self.layout().addWidget(self.label)
 
         # Eingabefeld
         self.input_field = QLineEdit()
-        self.input_field.setPlaceholderText("Pfad/zu/meinem/File.xyz")
+        self.input_field.setPlaceholderText("Pfad/zu/meinem/case")
         self.layout().addWidget(self.input_field)
 
         # Erzeugen eines Ok- und Close-Buttons nebeneinander
