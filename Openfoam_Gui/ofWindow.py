@@ -48,10 +48,6 @@ class ofWindow(QMainWindow):
         setCase_action = QAction("Set Case", self)
         setCase_action.triggered.connect(lambda: self.setCase())
 
-        # Speicher-Aktion definieren
-        save_action = QAction("Save", self)
-        save_action.triggered.connect(lambda: self.save())
-
         # Exit-Aktion definieren
         exit_action = QAction("Exit", self)
         exit_action.setShortcut(QKeySequence.Quit)
@@ -59,7 +55,6 @@ class ofWindow(QMainWindow):
 
         # Aktionen zu File-Menü hinzufügen
         self.file_menu.addAction(setCase_action)
-        self.file_menu.addAction(save_action)
         self.file_menu.addAction(exit_action)
         #--------------------------------------------------------------------------
 
@@ -137,18 +132,15 @@ class ofWindow(QMainWindow):
         \t setCase legt die benötigte Ordnerstruktur eines Openfoam-Cases an
            (system, constant, 0)
         '''
-
         # Aufrufen des Dialogs (für case-Pfad)
         self.dialog = ofDialog.ofDialog()
         self.dialog.exec()
 
         # Abspeichern des case-Pfads
         self.file_path = Path(self.dialog.getFilepath()).resolve()
-        print(self.file_path)
 
         # Anlegen des Case-Ordners und der 3 Unterordner
         Case = Path(self.file_path) / "case"
-        print(Case)
         system = Path(self.file_path) / "case/system"
         constant = Path(self.file_path) / "case/constant"
         dir0 = Path(self.file_path) / "case/0"
@@ -159,39 +151,3 @@ class ofWindow(QMainWindow):
         constant.mkdir(parents = True, exist_ok = True)
         dir0.mkdir(parents = True, exist_ok = True)
     #=======================================================================================
-
-
-    # Fkt. - save
-    #============
-    def save(self):
-        '''
-        Fkt.-Beschreibung:
-        \t save speichert das aktuell, geöffnete Modell als json-File
-        '''
-        # Freedyn-Modell fehlt -> Fehlernachricht
-        #----------------------------------------
-        if self.mbsModel is None:
-            self.status.showMessage("Kein Modell zum Speichern geladen!")
-
-        # Freedyn-Modell ist vorhanden
-        #-----------------------------
-        else:
-            # Abspeichern der Dateiendung
-            file_name, file_extension = os.path.splitext(self.file_path)
-
-            # Wenn fdd-File eingelesen -> Endung auf .json ändern zum Speichern
-            if file_extension == ".fdd":
-                path = self.file_path.with_suffix(".json")
-
-            # Wenn Endung schon .json -> keine Änderung notwendig
-            elif file_extension == ".json":
-                path = self.file_path
-            
-            # Aufruf der Speicherfkt. von mbsModel
-            self.mbsModel.saveDatabase(path)
-
-            # Nachricht in Statusleiste
-            self.status.showMessage("Freedyn-Modell gespeichert")
-    #=======================================================================================
-
-    
