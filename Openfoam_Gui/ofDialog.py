@@ -116,24 +116,30 @@ class ofDialog(QDialog):
         Fkt.-Beschreibung
         \t writeOFHeader schreibt den Header eines Openfoam-Textfiles zeilenweise in eine Liste
         '''
-        line = "FoamFile"
+        line = "//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *// \n"
         lines.append(line)
 
-        line = "{"
+        line = "FoamFile \n"
         lines.append(line)
 
-        line = "\t version \t 2.0;"
+        line = "{ \n"
         lines.append(line)
 
-        line = "\t format \t ascii;"
+        line = "\t version \t 2.0; \n"
         lines.append(line)
 
-        line = "\t class \t dictionary;"
+        line = "\t format \t ascii; \n"
         lines.append(line)
 
-        line = "\t object \t" + self.name
+        line = "\t class \t dictionary; \n"
         lines.append(line)
 
-        line = "}"
+        line = "\t object \t" + self.name + "\n"
+        lines.append(line)
+
+        line = "} \n"
+        lines.append(line)
+
+        line = "//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *// \n\n"
         lines.append(line)
 
