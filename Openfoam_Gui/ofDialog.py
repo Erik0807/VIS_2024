@@ -122,7 +122,7 @@ class ofDialog(QDialog):
 
             for key in dic:
                 # Schreiben der aktuellen Zeile
-                line = f"{key}\t{dic[key]};\n"
+                line = f"{key}\t\t\t{dic[key]};\n\n"
 
                 # Hinzufügen der Zeile zur Liste
                 lines.append(line)
@@ -140,12 +140,13 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = {
-            self.label_app.text():          self.dropdown_app.currentText(),
-            self.label_startFrom.text():    self.dropdown_startFrom.currentText(),
-            self.label_startTime.text():    self.input_startTime.text(),
-            self.label_stopAt.text():       self.dropdown_stopAt.currentText(),
-            self.label_endTime.text():      self.input_endTime.text(),
-            self.label_deltaT.text():       self.input_deltaT.text()
+            self.label_app.text():              self.dropdown_app.currentText(),
+            self.label_startFrom.text():        self.dropdown_startFrom.currentText(),
+            self.label_startTime.text():        self.input_startTime.text(),
+            self.label_stopAt.text():           self.dropdown_stopAt.currentText(),
+            self.label_endTime.text():          self.input_endTime.text(),
+            self.label_deltaT.text():           self.input_deltaT.text(),
+            self.label_writeControl.text():     self.dropdown_writeControl.currentText()
         }
 
         # Rückgabe des Dictionaries

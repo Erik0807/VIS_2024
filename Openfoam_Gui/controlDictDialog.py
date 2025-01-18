@@ -56,7 +56,7 @@ class controlDictDialog(ofDialog):
         self.label_stopAt = QLabel("stopAt")
         self.layout().insertWidget(6, self.label_stopAt)
         self.dropdown_stopAt = QComboBox()
-        self.dropdown_stopAt.addItems(["stopAt"])
+        self.dropdown_stopAt.addItems(["endTime"])
         self.layout().insertWidget(7, self.dropdown_stopAt)
         #-----------------------------------------------------------------------------------
 
@@ -71,11 +71,21 @@ class controlDictDialog(ofDialog):
 
         # deltaT
         #-------
-        self.label_deltaT = QLabel("endTime")
+        self.label_deltaT = QLabel("deltaT")
         self.layout().insertWidget(10, self.label_deltaT)
         self.input_deltaT = QLineEdit()
-        self.input_deltaT.setPlaceholderText("1000")
+        self.input_deltaT.setPlaceholderText("0.001")
         self.layout().insertWidget(11, self.input_deltaT)
+        #-----------------------------------------------------------------------------------
+
+        # writeControl
+        #-------------
+        self.label_writeControl = QLabel("writeControl")
+        self.layout().insertWidget(12, self.label_writeControl)
+        self.dropdown_writeControl = QComboBox()
+        self.dropdown_writeControl.addItems(["timeStep"])
+        self.layout().insertWidget(13, self.dropdown_writeControl)
+        #-----------------------------------------------------------------------------------
 
         #-----------------------------------------------------------------------------------
 
