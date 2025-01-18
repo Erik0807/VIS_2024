@@ -72,15 +72,25 @@ class ofDialog(QDialog):
 
         # Name des Dictionaries auf Namen des geöffneten Dropdown-Widgets festlegen
         dicName = self.name + ".txt"
-        
-
-        for key in dic:
-            print(key, "\t", dic[key], ";")
 
         # Überschreiben / Erstellen eines txt-Files
+        #------------------------------------------
         with open(dicName, "w") as file:
-             for key in dic:
-                 file.write(f"{key}\t{dic[key]};\n")
+            # Anlegen einer Liste von Zeilen
+            lines = []
+
+            # Schreiben des Headers
+            self.writeOFHeader(lines)
+
+            for key in dic:
+                # Schreiben der aktuellen Zeile
+                line = f"{key}\t{dic[key]};\n"
+
+                # Hinzufügen der Zeile zur Liste
+                lines.append(line)
+
+            # Schreiben aller Zeilen
+            file.writelines(lines)
     #=======================================================================================
 
     # Fkt. - generateDic
@@ -95,6 +105,35 @@ class ofDialog(QDialog):
             "application":  self.dropdown.currentText()
         }
 
+        # Rückgabe des Dictionaries
         return dic
-        
+    #=======================================================================================
+
+    # Fkt. - writeOFHeader
+    #=====================
+    def writeOFHeader(self, lines):
+        '''
+        Fkt.-Beschreibung
+        \t writeOFHeader schreibt den Header eines Openfoam-Textfiles zeilenweise in eine Liste
+        '''
+        line = "FoamFile"
+        lines.append(line)
+
+        line = "{"
+        lines.append(line)
+
+        line = "\t version \t 2.0;"
+        lines.append(line)
+
+        line = "\t format \t ascii;"
+        lines.append(line)
+
+        line = "\t class \t dictionary;"
+        lines.append(line)
+
+        line = "\t object \t" + self.name
+        lines.append(line)
+
+        line = "}"
+        lines.append(line)
 
