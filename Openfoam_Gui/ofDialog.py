@@ -140,7 +140,8 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = {
-            "application":  self.dropdown.currentText()
+            self.label_app.text():  self.dropdown_app.currentText(),
+            "startFrom":    self.dropdown_start.currentText(),
         }
 
         # Rückgabe des Dictionaries
