@@ -26,9 +26,6 @@ class ofDialog(QDialog):
         # Fenster anlegen
         self.setLayout(QVBoxLayout())
 
-        # Anlegen eines generischen Dropdown-Menüs
-        self.dropdown = QComboBox()
-
         # Erzeugen eines Ok- und Close-Buttons nebeneinander
         button_layout = QHBoxLayout()
         self.ok_button = QPushButton("OK")
