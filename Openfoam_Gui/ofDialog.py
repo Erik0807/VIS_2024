@@ -1,7 +1,7 @@
 # Einlesen benötigte Bibliotheken
 #================================
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMenuBar, QDialog, QHBoxLayout,
-                               QVBoxLayout, QLabel, QPushButton, QLineEdit)
+                               QVBoxLayout, QLabel, QPushButton, QLineEdit, QComboBox)
 from PySide6.QtGui import QAction, QKeySequence
 from PySide6.QtCore import Slot
 
@@ -22,6 +22,9 @@ class ofDialog(QDialog):
 
         # Fenster anlegen
         self.setLayout(QVBoxLayout())
+
+        # Anlegen eines generischen Dropdown-Menüs
+        self.dropdown = QComboBox()
 
         # Erzeugen eines Ok- und Close-Buttons nebeneinander
         button_layout = QHBoxLayout()
@@ -51,3 +54,45 @@ class ofDialog(QDialog):
         \t getFilepath gibt den Dateipfad zum fdd-File zurück
         '''
         return self.file_path
+    #=======================================================================================
+
+    # Fkt. - writeDic
+    #================
+    def writeDic(self):
+        '''
+        Fkt.-Beschreibung:
+        \t writeDic schreibt das im Dropdown-Menü erstellre Dictionary als txt-File in den
+        \t gewünschten Ordner
+        \n
+        Input
+        \t dic...aus Dropdown-Menü erstelltes Dictionary
+        '''
+        # Anlegen des Dateinamens
+        #dicName = dic.name + ".txt"
+
+        dic = self.generateDic()
+
+        for key in dic:
+            print(dic[key])
+
+        # Überschreiben / Erstellen eines txt-Files
+        # with open(dic.name + ".txt", "w"):
+        #     for key in dic:
+        #         dicName.write(dic[key], "\t", dic[key][value], "\n")
+    #=======================================================================================
+
+    # Fkt. - generateDic
+    #===================
+    def generateDic(self):
+        '''
+        Fkt.-Beschreibung
+        \t generateDic legt ein Dictionary basierend auf dem Dropdown-Widget an
+        '''
+        # Anlegen eines Dictionaries
+        dic = {
+            "application":  self.dropdown.currentText()
+        }
+
+        return dic
+        
+
