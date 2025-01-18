@@ -11,6 +11,7 @@ from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 import ofDialog as ofDialog
 import setCaseDialog as setCaseDialog
 import controlDictDialog as controlDictDialog
+import setWorkDirDialog as setWorkDirDialog
 
 #===================================================================================
 #                               KLASSE - ofWindow                                 #
@@ -46,6 +47,10 @@ class ofWindow(QMainWindow):
 
         # Funktionen im File-Menü
         #------------------------
+        # SetWorkDir-Aktion, um Arbeitsverzeichnis festzulegen
+        setWorkDir_action = QAction("Set Working Directory", self)
+        setWorkDir_action.triggered.connect(self.setWorkDir)
+
         # SetCase-Aktion, um Ordnerstruktur aufzusetzen
         setCase_action = QAction("Set Case", self)
         setCase_action.triggered.connect(self.setCase)
@@ -56,6 +61,7 @@ class ofWindow(QMainWindow):
         exit_action.triggered.connect(self.close)
 
         # Aktionen zu File-Menü hinzufügen
+        self.file_menu.addAction(setWorkDir_action)
         self.file_menu.addAction(setCase_action)
         self.file_menu.addAction(exit_action)
         #--------------------------------------------------------------------------
@@ -126,6 +132,23 @@ class ofWindow(QMainWindow):
         self.interactor = self.vtkWidget.GetRenderWindow().GetInteractor()
         self.renderer.SetBackground(0.1, 0.2, 0.4)  # Hintergrundfarbe
         self.interactor.Initialize()
+    #=======================================================================================
+
+    # Fkt. - setWorkDir
+    #==================
+    def setWorkDir(self):
+        '''
+        Fkt.-Beschreibung:
+            setWorkDir legt das gewünschte Arbeitsverzeichnis (Pfad zum bestehenden Case) \n
+        Output:
+            workDir...Pfad zum aktuellen Case
+        '''
+        # Aufrufen des Dialogs (für case-Pfad)
+        self.dialog = setWorkDirDialog.setWorkDirDialog()
+        self.dialog.exec()
+
+        # Abspeichern des case-Pfads
+        self.workDir = Path(self.dialog.getFilepath()).resolve()
     #=======================================================================================
 
     # Fkt. - setCase
