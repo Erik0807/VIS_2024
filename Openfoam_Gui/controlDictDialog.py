@@ -22,13 +22,21 @@ class controlDictDialog(ofDialog):
         self.setWindowTitle("controlDict")
         self.name = self.windowTitle()
 
+        # Erzeugen der Dropdown-Menüs für die Dictionary-Einträge
+        #--------------------------------------------------------
         # Application
-        self.label = QLabel("application")
-        self.layout().insertWidget(0, self.label)
+        self.label_app = QLabel("application")
+        self.layout().insertWidget(0, self.label_app)
+        self.dropdown_app = QComboBox()
+        self.dropdown_app.addItems(["icoFoam", "simpleFoam", "pimpleFoam"])
+        self.layout().insertWidget(1, self.dropdown_app)
 
-        # Dropdown-Menü (QComboBox) befüllen
-        self.dropdown.addItems(["icoFoam", "simpleFoam", "pimpleFoam"])
-        self.layout().insertWidget(1, self.dropdown)
+        # startFrom
+        self.label_start = QLabel("startFrom")
+        self.layout().insertWidget(2, self.label_start)
+        self.dropdown_start = QComboBox()
+        self.dropdown_start.addItems(["latestTime", "0"])
+        self.layout().insertWidget(3, self.dropdown_start)
 
         # Buttonverbindungen
         self.ok_button.clicked.connect(self.writeDic)
