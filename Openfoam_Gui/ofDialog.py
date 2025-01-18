@@ -59,22 +59,21 @@ class ofDialog(QDialog):
         return self.file_path
     #=======================================================================================
 
-    # Fkt. - writeDic
-    #================
-    def writeDic(self):
+    # Fkt. - getSavePath
+    #===================
+    def getSavePath(self):
         '''
         Fkt.-Beschreibung:
-        \t writeDic schreibt das im Dropdown-Menü erstellte Dictionary als txt-File in den
-        \t gewünschten Ordner
+        \t getSavePath liefert den Pfad, an dem die Dictionaries abgespeichert werden sollen
+        \n
+        Output:
+        \t savePath...Pfad zum Speicherort des Dictionaries
         '''
-        # Anlegen eines Dictionaries
-        dic = self.generateDic()
-
         # Name des Dictionaries auf Namen des geöffneten Dropdown-Widgets festlegen
         dicName = self.name + ".txt"
 
-        # Bestimmen des Speicherorts
-        #---------------------------
+        # Je nach Dictionary -> anderer Speicherort
+        #------------------------------------------
         if self.name == "controlDict" or "fvSchemes" or "fvSolution":
             savePath = Path(self.file_path) / "case/system" / Path(dicName)
             savePath.resolve()
@@ -86,6 +85,23 @@ class ofDialog(QDialog):
         elif self.name == "p" or "U" or "T":
             savePath = Path(self.file_path) / "case/0" / Path(dicName)
             savePath.resolve()
+
+        return savePath
+
+    # Fkt. - writeDic
+    #================
+    def writeDic(self):
+        '''
+        Fkt.-Beschreibung:
+        \t writeDic schreibt das im Dropdown-Menü erstellte Dictionary als txt-File in den
+        \t gewünschten Ordner
+        '''
+        # Anlegen eines Dictionaries
+        dic = self.generateDic()
+
+        # Bestimmen des Speicherorts
+        #---------------------------
+        savePath = self.getSavePath()
 
         # Überschreiben / Erstellen eines txt-Files
         #------------------------------------------
