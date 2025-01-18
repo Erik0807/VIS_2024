@@ -97,6 +97,7 @@ class ofDialog(QDialog):
             savePath.resolve()
 
         return savePath
+    #=======================================================================================
 
     # Fkt. - writeDic
     #================
