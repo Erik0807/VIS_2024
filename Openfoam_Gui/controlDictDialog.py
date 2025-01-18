@@ -20,9 +20,10 @@ class controlDictDialog(ofDialog):
 
         # Titel des Fensters
         self.setWindowTitle("controlDict")
+        self.name = self.windowTitle()
 
         # Application
-        self.label = QLabel("apllication")
+        self.label = QLabel("application")
         self.layout().insertWidget(0, self.label)
 
         # Dropdown-Menü (QComboBox) befüllen
