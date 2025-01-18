@@ -73,7 +73,7 @@ class ofDialog(QDialog):
         dic = self.generateDic()
 
         for key in dic:
-            print(dic[key])
+            print(key, "\t", dic[key])
 
         # Überschreiben / Erstellen eines txt-Files
         # with open(dic.name + ".txt", "w"):
