@@ -20,6 +20,9 @@ class ofDialog(QDialog):
         # Initialisieren des Dateipfads
         self.file_path = ""
 
+        # Initialisieren eines Objektnamens
+        self.name = ""
+
         # Fenster anlegen
         self.setLayout(QVBoxLayout())
 
@@ -63,17 +66,16 @@ class ofDialog(QDialog):
         Fkt.-Beschreibung:
         \t writeDic schreibt das im Dropdown-Menü erstellre Dictionary als txt-File in den
         \t gewünschten Ordner
-        \n
-        Input
-        \t dic...aus Dropdown-Menü erstelltes Dictionary
         '''
-        # Anlegen des Dateinamens
-        #dicName = dic.name + ".txt"
-
+        # Anlegen eines Dictionaries
         dic = self.generateDic()
+        dicName = self.name
+
+        print(dicName + ".txt")
+        
 
         for key in dic:
-            print(key, "\t", dic[key])
+            print(key, "\t", dic[key], ";")
 
         # Überschreiben / Erstellen eines txt-Files
         # with open(dic.name + ".txt", "w"):
