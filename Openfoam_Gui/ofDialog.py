@@ -142,7 +142,10 @@ class ofDialog(QDialog):
         dic = {
             self.label_app.text():          self.dropdown_app.currentText(),
             self.label_startFrom.text():    self.dropdown_startFrom.currentText(),
-            self.label_startTime.text():    self.input_startTime.text()
+            self.label_startTime.text():    self.input_startTime.text(),
+            self.label_stopAt.text():       self.dropdown_stopAt.currentText(),
+            self.label_endTime.text():      self.input_endTime.text(),
+            self.label_deltaT.text():       self.input_deltaT.text()
         }
 
         # Rückgabe des Dictionaries
