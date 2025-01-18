@@ -69,18 +69,18 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = self.generateDic()
-        dicName = self.name
 
-        print(dicName + ".txt")
+        # Name des Dictionaries auf Namen des geöffneten Dropdown-Widgets festlegen
+        dicName = self.name + ".txt"
         
 
         for key in dic:
             print(key, "\t", dic[key], ";")
 
         # Überschreiben / Erstellen eines txt-Files
-        # with open(dic.name + ".txt", "w"):
-        #     for key in dic:
-        #         dicName.write(dic[key], "\t", dic[key][value], "\n")
+        with open(dicName, "w") as file:
+             for key in dic:
+                 file.write(f"{key}\t{dic[key]};\n")
     #=======================================================================================
 
     # Fkt. - generateDic
