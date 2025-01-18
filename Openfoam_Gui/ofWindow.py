@@ -48,7 +48,7 @@ class ofWindow(QMainWindow):
         #------------------------
         # SetCase-Aktion, um Ordnerstruktur aufzusetzen
         setCase_action = QAction("Set Case", self)
-        setCase_action.triggered.connect(lambda: self.setCase())
+        setCase_action.triggered.connect(self.setCase)
 
         # Exit-Aktion definieren
         exit_action = QAction("Exit", self)
@@ -63,7 +63,7 @@ class ofWindow(QMainWindow):
         # Funktionen im system-Menü
         #--------------------------
         controlDict_action = QAction("controlDict", self)
-        controlDict_action.triggered.connect(lambda: self.writeControlDict())
+        controlDict_action.triggered.connect(self.writeControlDict)
 
         fvSchemes_action = QAction("fvSchemes", self)
         fvSolution_action = QAction("fvSolution", self)
@@ -157,12 +157,14 @@ class ofWindow(QMainWindow):
     #=======================================================================================
 
     # Fkt. - writeControlDict
+    #========================
     def writeControlDict(self):
         '''
         Fkt.-Beschreibung:
         \t writeControlDict öffnet einen Q-Dialog mit versch. Dropdown-Menüs zum 
-           controlDict. Bei Klick auf ok wird ein Textfile in den system-Ordner gespeichert.
+        \t controlDict. Bei Klick auf ok wird ein Textfile in den system-Ordner gespeichert.
         '''
         # Aufrufen des Dialogs (für case-Pfad)
         self.dialog = controlDictDialog.controlDictDialog()
         self.dialog.exec()
+    #=======================================================================================
