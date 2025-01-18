@@ -25,8 +25,11 @@ class controlDictDialog(ofDialog):
         self.label = QLabel("apllication")
         self.layout().insertWidget(0, self.label)
 
-        # Dropdown-Menü (QComboBox)
-        self.dropdown = QComboBox()
-        self.dropdown.addItems(["icoFoam", "simpleFoam", "pimpleFoam"])  # Menüeinträge hinzufügen
+        # Dropdown-Menü (QComboBox) befüllen
+        self.dropdown.addItems(["icoFoam", "simpleFoam", "pimpleFoam"])
         self.layout().insertWidget(1, self.dropdown)
+
+        # Buttonverbindungen
+        self.ok_button.clicked.connect(self.writeDic)
+        self.close_button.clicked.connect(self.reject)
 
