@@ -79,6 +79,14 @@ class ofDialog(QDialog):
             savePath = Path(self.file_path) / "case/system" / Path(dicName)
             savePath.resolve()
 
+        elif self.name == "thermophysicalProperties" or "turbulenceProperties":
+            savePath = Path(self.file_path) / "case/constant" / Path(dicName)
+            savePath.resolve()
+
+        elif self.name == "p" or "U" or "T":
+            savePath = Path(self.file_path) / "case/0" / Path(dicName)
+            savePath.resolve()
+
         # Überschreiben / Erstellen eines txt-Files
         #------------------------------------------
         with open(savePath, "w") as file:
