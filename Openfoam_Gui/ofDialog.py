@@ -4,7 +4,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QMenuBar, QDialog, QHB
                                QVBoxLayout, QLabel, QPushButton, QLineEdit, QComboBox)
 from PySide6.QtGui import QAction, QKeySequence
 from PySide6.QtCore import Slot
-
+from pathlib import Path
 
 #===================================================================================
 #                               KLASSE - ofDialog                                 #
@@ -64,7 +64,7 @@ class ofDialog(QDialog):
     def writeDic(self):
         '''
         Fkt.-Beschreibung:
-        \t writeDic schreibt das im Dropdown-Menü erstellre Dictionary als txt-File in den
+        \t writeDic schreibt das im Dropdown-Menü erstellte Dictionary als txt-File in den
         \t gewünschten Ordner
         '''
         # Anlegen eines Dictionaries
@@ -73,9 +73,15 @@ class ofDialog(QDialog):
         # Name des Dictionaries auf Namen des geöffneten Dropdown-Widgets festlegen
         dicName = self.name + ".txt"
 
+        # Bestimmen des Speicherorts
+        #---------------------------
+        if self.name == "controlDict" or "fvSchemes" or "fvSolution":
+            savePath = Path(self.file_path) / "case/system" / Path(dicName)
+            savePath.resolve()
+
         # Überschreiben / Erstellen eines txt-Files
         #------------------------------------------
-        with open(dicName, "w") as file:
+        with open(savePath, "w") as file:
             # Anlegen einer Liste von Zeilen
             lines = []
 
