@@ -32,11 +32,18 @@ class controlDictDialog(ofDialog):
         self.layout().insertWidget(1, self.dropdown_app)
 
         # startFrom
-        self.label_start = QLabel("startFrom")
-        self.layout().insertWidget(2, self.label_start)
-        self.dropdown_start = QComboBox()
-        self.dropdown_start.addItems(["latestTime", "0"])
-        self.layout().insertWidget(3, self.dropdown_start)
+        self.label_startFrom = QLabel("startFrom")
+        self.layout().insertWidget(2, self.label_startFrom)
+        self.dropdown_startFrom = QComboBox()
+        self.dropdown_startFrom.addItems(["latestTime", "0"])
+        self.layout().insertWidget(3, self.dropdown_startFrom)
+
+        # startFrom
+        self.label_startTime = QLabel("startTime")
+        self.layout().insertWidget(4, self.label_startTime)
+        self.input_startTime = QLineEdit()
+        self.input_startTime.setPlaceholderText("0")
+        self.layout().insertWidget(5, self.input_startTime)
 
         # Buttonverbindungen
         self.ok_button.clicked.connect(self.writeDic)
