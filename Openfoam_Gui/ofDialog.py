@@ -86,6 +86,16 @@ class ofDialog(QDialog):
             savePath = Path(self.file_path) / "case/0" / Path(dicName)
             savePath.resolve()
 
+        else:
+            # Fehlermeldung + anlegen eines unknown-Ordners
+            print("Unbekanntes Dictionary -> wird in Ordner unknown abgelegt")
+            unknown = Path(self.file_path) / "case"
+            unknown.mkdir(parents = True, exist_ok = True)
+            
+            # Setzen des Speicherpfads
+            savePath = Path(self.file_path) / "case/unknown" / Path(dicName)
+            savePath.resolve()
+
         return savePath
 
     # Fkt. - writeDic
