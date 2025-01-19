@@ -137,6 +137,8 @@ class ofDialog(QDialog):
             file.writelines(lines)
     #=======================================================================================
 
+    # 
+
     # Fkt. - writeOFHeader
     #=====================
     def writeOFHeader(self, lines):
@@ -159,7 +161,7 @@ class ofDialog(QDialog):
         line = "\t format \t ascii; \n"
         lines.append(line)
 
-        line = "\t class \t dictionary; \n"
+        line = "\t class \t\t dictionary; \n"
         lines.append(line)
 
         line = "\t object \t" + self.name + ";\n"
@@ -210,4 +212,9 @@ class ofDialog(QDialog):
         \t generateFvSchemes legt ein fvSchemes-Dictionary basierend auf dem Dropdown-Widget an
         '''
         # Anlegen eines Dictionaries
-        
+        dic = {
+            self.label_ddtSchemes.text():   {"default": self.dropdown_ddtSchemes.currentText()},
+        }
+
+        # Rückgabe des Dictionaries
+        return dic
