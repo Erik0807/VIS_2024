@@ -8,7 +8,7 @@ from ofDialog import ofDialog
 
 
 #===================================================================================
-#                               KLASSE - controlDictDialog                         #
+#                               KLASSE - fvSchemesDialog                           #
 #===================================================================================
 
 class fvSchemesDialog(ofDialog):
