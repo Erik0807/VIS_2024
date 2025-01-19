@@ -104,16 +104,15 @@ class ofDialog(QDialog):
         \t writeDic schreibt das im Dropdown-Menü erstellte Dictionary als txt-File in den
         \t gewünschten Ordner
         '''
-        # Anlegen des Dictionaries, je nach Name des Widgets
-        #---------------------------------------------------
+        # Anlegen des Dictionaries, je nach Name des Widgets -> Rausschreiben
+        #--------------------------------------------------------------------
         if self.name == "controlDict":
             dic = self.generateControlDict()
-            # Überschreiben / Erstellen eines txt-Files
-            #------------------------------------------
             self.writeSimpleDic(dic)
 
         elif self.name == "fvSchemes":
             dic = self.generateFvSchemes()
+            self.writeComplexDic(dic)
      
 
         
@@ -149,6 +148,42 @@ class ofDialog(QDialog):
 
                 # Hinzufügen der Zeile zur Liste
                 lines.append(line)
+
+            # Schreiben aller Zeilen
+            file.writelines(lines)
+    #=======================================================================================
+
+    # Fkt. - writeComplexDic
+    #=======================
+    def writeComplexDic(self, dic):
+        '''
+        Fkt.-Beschreibung:
+            writeComplexDic erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
+            komplexer Dictionary-Struktur (Subdictionaries)
+        \n
+        Input:
+            dic...Dictionary (mit Subdictionaries) 
+        '''
+        # Bestimmen des Speicherorts
+        #---------------------------
+        savePath = self.getSavePath()
+
+        # Überschreiben / Erstellen eines txt-Files
+        #------------------------------------------
+        with open(savePath, "w") as file:
+            # Anlegen einer Liste von Zeilen
+            lines = []
+
+            # Schreiben des Headers
+            self.writeOFHeader(lines)
+
+            for key in dic:
+                for subkey in dic[key]:
+                    # Schreiben der aktuellen Zeile
+                    line = f"{key}\n{{\n\t{subkey}\t\t{dic[key].get(subkey)};\n}}\n\n"
+
+                    # Hinzufügen der Zeile zur Liste
+                    lines.append(line)
 
             # Schreiben aller Zeilen
             file.writelines(lines)
