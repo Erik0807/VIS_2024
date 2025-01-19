@@ -163,3 +163,5 @@ class controlDictDialog(ofDialog):
         self.ok_button.clicked.connect(self.writeDic)
         self.close_button.clicked.connect(self.reject)
 
+    
+
