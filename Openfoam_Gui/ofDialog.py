@@ -108,11 +108,28 @@ class ofDialog(QDialog):
         #---------------------------------------------------
         if self.name == "controlDict":
             dic = self.generateControlDict()
+            # Überschreiben / Erstellen eines txt-Files
+            #------------------------------------------
+            self.writeSimpleDic(dic)
 
         elif self.name == "fvSchemes":
             dic = self.generateFvSchemes()
-        
+     
 
+        
+    #=======================================================================================
+
+    # Fkt. - writeSimpleDic
+    #======================
+    def writeSimpleDic(self, dic):
+        '''
+        Fkt.-Beschreibung:
+            writeSimpleDic erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
+            einfacher Dictionary-Struktur (keine Subdictionaries)
+        \n
+        Input:
+            dic...Dictionary (ohne Subdictionaries)
+        '''
         # Bestimmen des Speicherorts
         #---------------------------
         savePath = self.getSavePath()
@@ -136,8 +153,6 @@ class ofDialog(QDialog):
             # Schreiben aller Zeilen
             file.writelines(lines)
     #=======================================================================================
-
-    # 
 
     # Fkt. - writeOFHeader
     #=====================
