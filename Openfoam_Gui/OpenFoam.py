@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     # Anlegen und zeigen des Hauptfensters
     window = ofWindow(widget)
-    window.show()
+    window.showFullScreen()
 
     # Ausführen der Anwendung
     sys.exit(app.exec())
