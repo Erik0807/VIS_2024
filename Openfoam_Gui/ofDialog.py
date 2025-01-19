@@ -104,8 +104,14 @@ class ofDialog(QDialog):
         \t writeDic schreibt das im Dropdown-Menü erstellte Dictionary als txt-File in den
         \t gewünschten Ordner
         '''
-        # Anlegen eines Dictionaries
-        dic = self.generateDic()
+        # Anlegen des Dictionaries, je nach Name des Widgets
+        #---------------------------------------------------
+        if self.name == "controlDict":
+            dic = self.generateControlDict()
+
+        elif self.name == "fvSchemes":
+            dic = self.generateFvSchemes()
+        
 
         # Bestimmen des Speicherorts
         #---------------------------
@@ -131,12 +137,47 @@ class ofDialog(QDialog):
             file.writelines(lines)
     #=======================================================================================
 
-    # Fkt. - generateDic
-    #===================
-    def generateDic(self):
+    # Fkt. - writeOFHeader
+    #=====================
+    def writeOFHeader(self, lines):
         '''
         Fkt.-Beschreibung
-        \t generateDic legt ein Dictionary basierend auf dem Dropdown-Widget an
+        \t writeOFHeader schreibt den Header eines Openfoam-Textfiles zeilenweise in eine Liste
+        '''
+        line = "// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // \n"
+        lines.append(line)
+
+        line = "FoamFile \n"
+        lines.append(line)
+
+        line = "{ \n"
+        lines.append(line)
+
+        line = "\t version \t 2.0; \n"
+        lines.append(line)
+
+        line = "\t format \t ascii; \n"
+        lines.append(line)
+
+        line = "\t class \t dictionary; \n"
+        lines.append(line)
+
+        line = "\t object \t" + self.name + ";\n"
+        lines.append(line)
+
+        line = "} \n"
+        lines.append(line)
+
+        line = "// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // \n\n"
+        lines.append(line)
+    #=======================================================================================
+
+    # Fkt. - generateControlDict
+    #===========================
+    def generateControlDict(self):
+        '''
+        Fkt.-Beschreibung
+        \t generateControlDict legt ein controlDict-Dictionary basierend auf dem Dropdown-Widget an
         '''
         # Anlegen eines Dictionaries
         dic = {
@@ -161,37 +202,12 @@ class ofDialog(QDialog):
         return dic
     #=======================================================================================
 
-    # Fkt. - writeOFHeader
-    #=====================
-    def writeOFHeader(self, lines):
+    # Fkt. - generateFvSchemes
+    #=========================
+    def generateFvSchemes(self):
         '''
         Fkt.-Beschreibung
-        \t writeOFHeader schreibt den Header eines Openfoam-Textfiles zeilenweise in eine Liste
+        \t generateFvSchemes legt ein fvSchemes-Dictionary basierend auf dem Dropdown-Widget an
         '''
-        line = "//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *// \n"
-        lines.append(line)
-
-        line = "FoamFile \n"
-        lines.append(line)
-
-        line = "{ \n"
-        lines.append(line)
-
-        line = "\t version \t 2.0; \n"
-        lines.append(line)
-
-        line = "\t format \t ascii; \n"
-        lines.append(line)
-
-        line = "\t class \t dictionary; \n"
-        lines.append(line)
-
-        line = "\t object \t" + self.name + ";\n"
-        lines.append(line)
-
-        line = "} \n"
-        lines.append(line)
-
-        line = "//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *// \n\n"
-        lines.append(line)
-
+        # Anlegen eines Dictionaries
+        

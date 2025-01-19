@@ -12,6 +12,7 @@ import ofDialog as ofDialog
 import setCaseDialog as setCaseDialog
 import controlDictDialog as controlDictDialog
 import setWorkDirDialog as setWorkDirDialog
+import fvSchemesDialog as fvSchemesDialog
 
 #===================================================================================
 #                               KLASSE - ofWindow                                 #
@@ -68,10 +69,15 @@ class ofWindow(QMainWindow):
 
         # Funktionen im system-Menü
         #--------------------------
+        # controlDict-Aktion
         controlDict_action = QAction("controlDict", self)
         controlDict_action.triggered.connect(self.writeControlDict)
 
+        # fvSchemes-Aktion
         fvSchemes_action = QAction("fvSchemes", self)
+        fvSchemes_action.triggered.connect(self.writeFvSchemes)
+
+
         fvSolution_action = QAction("fvSolution", self)
 
         # Aktionen zu system-Menü hinzufügen
@@ -177,6 +183,9 @@ class ofWindow(QMainWindow):
         system.mkdir(parents = True, exist_ok = True)
         constant.mkdir(parents = True, exist_ok = True)
         dir0.mkdir(parents = True, exist_ok = True)
+
+        # Nachricht in Statusleiste
+        self.status.showMessage("case-Struktur angelegt")
     #=======================================================================================
 
     # Fkt. - writeControlDict
@@ -189,5 +198,18 @@ class ofWindow(QMainWindow):
         '''
         # Aufrufen des Dialogs (für case-Pfad)
         self.dialog = controlDictDialog.controlDictDialog()
+        self.dialog.exec()
+    #=======================================================================================
+
+    # Fkt. - writeFvSchemes
+    #========================
+    def writeFvSchemes(self):
+        '''
+        Fkt.-Beschreibung:
+        \t writeFvSchemes öffnet einen Q-Dialog mit versch. Dropdown-Menüs zum 
+        \t fvSchemes-Dict. Bei Klick auf ok wird ein Textfile in den system-Ordner gespeichert.
+        '''
+        # Aufrufen des Dialogs (für case-Pfad)
+        self.dialog = fvSchemesDialog.fvSchemesDialog()
         self.dialog.exec()
     #=======================================================================================
