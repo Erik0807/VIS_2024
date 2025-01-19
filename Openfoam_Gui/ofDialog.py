@@ -263,7 +263,12 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = {
-            self.label_ddtSchemes.text():   {"default": self.dropdown_ddtSchemes.currentText()},
+            self.label_ddtSchemes.text():           {"default": self.dropdown_ddtSchemes.currentText()},
+            self.label_gradSchemes.text():          {"default": self.dropdown_gradSchemes.currentText()},
+            self.label_divSchemes.text():           {"default": self.dropdown_divSchemes.currentText() + " grad(U)"},
+            self.label_laplacianSchemes.text():     {"default": self.dropdown_laplacianSchemes.currentText()},
+            self.label_interpolationSchemes.text(): {"default": self.dropdown_interpolationSchemes.currentText()},
+            self.label_snGradSchemes.text():        {"default": self.dropdown_snGradSchemes.currentText()},
         }
 
         # Rückgabe des Dictionaries
