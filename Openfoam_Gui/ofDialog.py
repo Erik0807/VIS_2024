@@ -96,6 +96,30 @@ class ofDialog(QDialog):
         return savePath
     #=======================================================================================
 
+    # Fkt. - getDicDepth
+    #===================
+    def getDicDepth(self, dic):
+        '''
+        Fkt.-Beschreibung:
+            getDicDepth bestimmt die Tiefe eines Dictionaries (wie viele Subdictionaries es hat)
+        \n
+        Input:
+            dic...Dictionary, dessen Tiefe bestimmt werden soll
+        \n
+        Output:
+            depth...Integer, der angibt, wie viel Subdictionaries vorhanden sind
+        '''
+        # Überprüfung, ob das übergebene Objekt ein Dictionary ist
+        if isinstance(dic, dict):
+            # Durchsucht die Werte des Dictionaries -> ist der Wert ebenfalls ein Dictionary
+            # -> Fkt. wird rekursiv aufgerufen und auf Wert angewandt -> so wird die max. Tiefe
+            # herausgefahren -> + 1, wegen Einstieg in Dictionary zu Beginn
+            return 1 + max((self.getDicDepth(value) for value in dic.values()), default = 0)
+        
+        # Wenn kein Dictionary vorliegt (falsche Eingabe, bzw. in tiefster Ebene) -> Rückgabe v. 0
+        return 0
+    #=======================================================================================
+
     # Fkt. - writeDic
     #================
     def writeDic(self):
@@ -104,18 +128,19 @@ class ofDialog(QDialog):
         \t writeDic schreibt das im Dropdown-Menü erstellte Dictionary als txt-File in den
         \t gewünschten Ordner
         '''
-        # Anlegen des Dictionaries, je nach Name des Widgets -> Rausschreiben
-        #--------------------------------------------------------------------
+        # Anlegen des Dictionaries -> je nach Tiefe des Dictionaries -> unterschiedl. Methode
+        #------------------------------------------------------------------------------------
         if self.name == "controlDict":
             dic = self.generateControlDict()
             self.writeSimpleDic(dic)
 
         elif self.name == "fvSchemes":
             dic = self.generateFvSchemes()
-            self.writeComplexDic(dic)
+            self.writeComplexDic1(dic)
      
-
-        
+        elif self.name == "fvSolution":
+            dic = self.generateFvSolution()
+            self.writeComplexDic2(dic)
     #=======================================================================================
 
     # Fkt. - writeSimpleDic
@@ -153,16 +178,16 @@ class ofDialog(QDialog):
             file.writelines(lines)
     #=======================================================================================
 
-    # Fkt. - writeComplexDic
-    #=======================
-    def writeComplexDic(self, dic):
+    # Fkt. - writeComplexDic1
+    #========================
+    def writeComplexDic1(self, dic):
         '''
         Fkt.-Beschreibung:
-            writeComplexDic erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
-            komplexer Dictionary-Struktur (Subdictionaries)
+            writeComplexDic1 erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
+            komplexer Dictionary-Struktur (1 Subdictionary)
         \n
         Input:
-            dic...Dictionary (mit Subdictionaries) 
+            dic...Dictionary (mit 1 Subdictionary) 
         '''
         # Bestimmen des Speicherorts
         #---------------------------
@@ -188,6 +213,44 @@ class ofDialog(QDialog):
             # Schreiben aller Zeilen
             file.writelines(lines)
     #=======================================================================================
+
+    # Fkt. - writeComplexDic2
+    #========================
+    def writeComplexDic2(self, dic):
+        '''
+        Fkt.-Beschreibung:
+            writeComplexDic2 erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
+            komplexer Dictionary-Struktur (2 Subdictionaries)
+        \n
+        Input:
+            dic...Dictionary (mit 2 Subdictionaries) 
+        '''
+        # Bestimmen des Speicherorts
+        #---------------------------
+        savePath = self.getSavePath()
+
+        # Überschreiben / Erstellen eines txt-Files
+        #------------------------------------------
+        with open(savePath, "w") as file:
+            # Anlegen einer Liste von Zeilen
+            lines = []
+
+            # Schreiben des Headers
+            self.writeOFHeader(lines)
+
+            for key in dic:
+                for subkey in dic[key]:
+                    for subsubkey in dic[key][subkey]:
+                        # Schreiben der aktuellen Zeile
+                        line = f"{key}\n{{\n\t{subkey}\n{{{subsubkey}\t\t{dic[key][subkey].get(subsubkey)};\n}}\n}}\n\n"
+
+                        # Hinzufügen der Zeile zur Liste
+                        lines.append(line)
+
+            # Schreiben aller Zeilen
+            file.writelines(lines)
+    #=======================================================================================
+
 
     # Fkt. - writeOFHeader
     #=====================
@@ -258,7 +321,7 @@ class ofDialog(QDialog):
     #=========================
     def generateFvSchemes(self):
         '''
-        Fkt.-Beschreibung
+        Fkt.-Beschreibung:
         \t generateFvSchemes legt ein fvSchemes-Dictionary basierend auf dem Dropdown-Widget an
         '''
         # Anlegen eines Dictionaries
@@ -273,3 +336,17 @@ class ofDialog(QDialog):
 
         # Rückgabe des Dictionaries
         return dic
+    #=======================================================================================
+
+    # Fkt. - generateFvSolution
+    #==========================
+    def generateFvSolution(self):
+        '''
+        Fkt.-Beschreibung:
+        \t generateFvSchemes legt ein fvSolution-Dictionary basierend auf dem Dropdown-Widget an
+        '''
+        # Anlegen eines Dictionaries
+        dic = {
+            
+        }
+        
