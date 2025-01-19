@@ -13,6 +13,7 @@ import setCaseDialog as setCaseDialog
 import controlDictDialog as controlDictDialog
 import setWorkDirDialog as setWorkDirDialog
 import fvSchemesDialog as fvSchemesDialog
+import fvSolutionDialog as fvSolutionDialog
 
 #===================================================================================
 #                               KLASSE - ofWindow                                 #
@@ -77,8 +78,9 @@ class ofWindow(QMainWindow):
         fvSchemes_action = QAction("fvSchemes", self)
         fvSchemes_action.triggered.connect(self.writeFvSchemes)
 
-
+        # fvSolution-Atkion
         fvSolution_action = QAction("fvSolution", self)
+        fvSolution_action.triggered.connect(self.writeFvSolution)
 
         # Aktionen zu system-Menü hinzufügen
         self.sys_menu.addAction(controlDict_action)
@@ -211,5 +213,18 @@ class ofWindow(QMainWindow):
         '''
         # Aufrufen des Dialogs (für case-Pfad)
         self.dialog = fvSchemesDialog.fvSchemesDialog()
+        self.dialog.exec()
+    #=======================================================================================
+
+    # Fkt. - writeFvSolution
+    #=======================
+    def writeFvSolution(self):
+        '''
+        Fkt.-Beschreibung:
+        \t writeFvSolution öffnet einen Q-Dialog mit versch. Dropdown-Menüs zum 
+        \t writeFvSolution-Dict. Bei Klick auf ok wird ein Textfile in den system-Ordner gespeichert.
+        '''
+        # Aufrufen des Dialogs (für case-Pfad)
+        self.dialog = fvSolutionDialog.fvSolutionDialog()
         self.dialog.exec()
     #=======================================================================================
