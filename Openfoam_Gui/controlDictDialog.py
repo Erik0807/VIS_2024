@@ -87,6 +87,76 @@ class controlDictDialog(ofDialog):
         self.layout().insertWidget(13, self.dropdown_writeControl)
         #-----------------------------------------------------------------------------------
 
+        # writeInterval
+        #--------------
+        self.label_writeInterval = QLabel("writeInterval")
+        self.layout().insertWidget(14, self.label_writeInterval)
+        self.input_writeInterval = QLineEdit()
+        self.input_writeInterval.setPlaceholderText("10")
+        self.layout().insertWidget(15, self.input_writeInterval)
+        #-----------------------------------------------------------------------------------
+
+        # purgeWrite
+        #-----------
+        self.label_purgeWrite = QLabel("purgeWrite")
+        self.layout().insertWidget(16, self.label_purgeWrite)
+        self.input_purgeWrite = QLineEdit()
+        self.input_purgeWrite.setPlaceholderText("0")
+        self.layout().insertWidget(17, self.input_purgeWrite)
+        #-----------------------------------------------------------------------------------
+
+        # writeFormat
+        #------------
+        self.label_writeFormat = QLabel("writeFormat")
+        self.layout().insertWidget(18, self.label_writeFormat)
+        self.dropdown_writeFormat = QComboBox()
+        self.dropdown_writeFormat.addItems(["ascii", "binary"])
+        self.layout().insertWidget(19, self.dropdown_writeFormat)
+        #-----------------------------------------------------------------------------------
+
+        # writePrecision
+        #---------------
+        self.label_writePrecision = QLabel("writePrecision")
+        self.layout().insertWidget(20, self.label_writePrecision)
+        self.dropdown_writePrecision = QComboBox()
+        self.dropdown_writePrecision.addItems(["2", "3", "4", "5", "6"])
+        self.layout().insertWidget(21, self.dropdown_writePrecision)
+        #-----------------------------------------------------------------------------------
+
+        # writeCompression
+        #-----------------
+        self.label_writeCompression = QLabel("writeCompression")
+        self.layout().insertWidget(22, self.label_writeCompression)
+        self.dropdown_writeCompression = QComboBox()
+        self.dropdown_writeCompression.addItems(["on", "off"])
+        self.layout().insertWidget(23, self.dropdown_writeCompression)
+        #-----------------------------------------------------------------------------------
+
+        # timeFormat
+        #-----------
+        self.label_timeFormat = QLabel("timeFormat")
+        self.layout().insertWidget(24, self.label_timeFormat)
+        self.dropdown_timeFormat = QComboBox()
+        self.dropdown_timeFormat.addItems(["general"])
+        self.layout().insertWidget(25, self.dropdown_timeFormat)
+        #-----------------------------------------------------------------------------------
+
+        # timePrecision
+        #--------------
+        self.label_timePrecision = QLabel("timePrecision")
+        self.layout().insertWidget(26, self.label_timePrecision)
+        self.dropdown_timePrecision = QComboBox()
+        self.dropdown_timePrecision.addItems(["2", "3", "4", "5", "6"])
+        self.layout().insertWidget(27, self.dropdown_timePrecision)
+        #-----------------------------------------------------------------------------------
+
+        # runTimeModifiable
+        #------------------
+        self.label_runTimeModifiable = QLabel("runTimeModifiable")
+        self.layout().insertWidget(28, self.label_runTimeModifiable)
+        self.dropdown_runTimeModifiable = QComboBox()
+        self.dropdown_runTimeModifiable.addItems(["true", "false"])
+        self.layout().insertWidget(29, self.dropdown_runTimeModifiable)
         #-----------------------------------------------------------------------------------
 
         # Buttonverbindungen

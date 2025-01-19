@@ -140,13 +140,21 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = {
-            self.label_app.text():              self.dropdown_app.currentText(),
-            self.label_startFrom.text():        self.dropdown_startFrom.currentText(),
-            self.label_startTime.text():        self.input_startTime.text(),
-            self.label_stopAt.text():           self.dropdown_stopAt.currentText(),
-            self.label_endTime.text():          self.input_endTime.text(),
-            self.label_deltaT.text():           self.input_deltaT.text(),
-            self.label_writeControl.text():     self.dropdown_writeControl.currentText()
+            self.label_app.text():                  self.dropdown_app.currentText(),
+            self.label_startFrom.text():            self.dropdown_startFrom.currentText(),
+            self.label_startTime.text():            self.input_startTime.text(),
+            self.label_stopAt.text():               self.dropdown_stopAt.currentText(),
+            self.label_endTime.text():              self.input_endTime.text(),
+            self.label_deltaT.text():               self.input_deltaT.text(),
+            self.label_writeControl.text():         self.dropdown_writeControl.currentText(),
+            self.label_writeInterval.text():        self.input_writeInterval.text(),
+            self.label_purgeWrite.text():           self.input_purgeWrite.text(),
+            self.label_writeFormat.text():          self.dropdown_writeFormat.currentText(),
+            self.label_writePrecision.text():       self.dropdown_writePrecision.currentText(),
+            self.label_writeCompression.text():     self.dropdown_writeCompression.currentText(),
+            self.label_timeFormat.text():           self.dropdown_timeFormat.currentText(),
+            self.label_timePrecision.text():        self.dropdown_timePrecision.currentText(),
+            self.label_runTimeModifiable.text():    self.dropdown_runTimeModifiable.currentText(),
         }
 
         # Rückgabe des Dictionaries
@@ -178,7 +186,7 @@ class ofDialog(QDialog):
         line = "\t class \t dictionary; \n"
         lines.append(line)
 
-        line = "\t object \t" + self.name + "\n"
+        line = "\t object \t" + self.name + ";\n"
         lines.append(line)
 
         line = "} \n"
