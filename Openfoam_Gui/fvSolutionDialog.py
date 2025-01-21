@@ -32,21 +32,34 @@ class fvSolutionDialog(ofDialog):
         self.label_solvers.setFont(font)
         self.layout().insertWidget(0, self.label_solvers)
 
-        # Erzeugen der Dropdown-Menüs für die Dictionary-Einträge
-        #========================================================
-        # divSchemes
-        #-----------
+        # Erzeugen der Dropdown-Menüs für die Dictionary-Einträge von p-Solvern
+        #======================================================================
+        # solver
+        #-------
         self.label_solver = QLabel("solver")
         self.dropdown_solver = QComboBox()
         self.dropdown_solver.addItems(["PCG", "PBiCGStab"])
         #----------------------------------------------------------------------------------
+
+        # preconditioner
+        #---------------
+        self.label_preconditioner = QLabel("preconditioner")
+        self.dropdown_preconditioner = QComboBox()
+        self.dropdown_preconditioner.addItems(["DIC", "DILU"])
+        #----------------------------------------------------------------------------------
+
+
 
         # Layout für Gruppierung um p
         #----------------------------
         layout_p = QVBoxLayout()
         layout_p.addWidget(self.label_solver)
         layout_p.addWidget(self.dropdown_solver)
+        layout_p.addWidget(self.label_preconditioner)
+        layout_p.addWidget(self.dropdown_preconditioner)
 
+        # Anlegen der p-Box
+        #------------------
         p_box = QGroupBox("p")
         p_box.setLayout(layout_p)
 
