@@ -347,8 +347,29 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = {
-            self.label_solvers.text():  {self.label_solver.text():          self.dropdown_solver.currentText(),
-                                         self.label_preconditioner.text():  self.dropdown_preconditioner.currentText(),
-                                         self.label_tolerance.text():       self.input_tolerance.text(),}
+            self.label_solvers.text():  
+                {
+                    {self.p_box.title():
+                        {
+                            self.label_solver.text():           self.dropdown_solver.currentText(),
+                            self.label_preconditioner.text():   self.dropdown_preconditioner.currentText(),
+                            self.label_tolerance.text():        self.input_tolerance.text(),
+                            self.label_relTol.text():           self.input_relTol.text()
+                        }
+                    },
+
+                    {self.pFinal_box.title():
+                        {
+                            "":                         "$p",
+                            self.label_relTol.text():   self.input_relTol.text()
+                        }
+                    }
+                },
+
+                
+                
+
+            
+
         }
         
