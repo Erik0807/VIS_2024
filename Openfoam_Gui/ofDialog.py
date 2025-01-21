@@ -27,12 +27,12 @@ class ofDialog(QDialog):
         self.setLayout(QVBoxLayout())
 
         # Erzeugen eines Ok- und Close-Buttons nebeneinander
-        button_layout = QHBoxLayout()
+        self.button_layout = QHBoxLayout()
         self.ok_button = QPushButton("OK")
         self.close_button = QPushButton("Close")
-        button_layout.addWidget(self.ok_button)
-        button_layout.addWidget(self.close_button)
-        self.layout().addLayout(button_layout)
+        self.button_layout.addWidget(self.ok_button)
+        self.button_layout.addWidget(self.close_button)
+        self.layout().addLayout(self.button_layout)
     #=======================================================================================
 
     # Fkt. - getInput
@@ -347,6 +347,7 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = {
-            
+            self.label_solvers.text():  {self.label_solver.text(): self.dropdown_solver.currentText(),
+                                         self.label_preconditioner.text(): self.dropdown_preconditioner.currentText()}
         }
         
