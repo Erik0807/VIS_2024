@@ -347,38 +347,22 @@ class ofDialog(QDialog):
         '''
         # Anlegen eines Dictionaries
         dic = {
-            self.label_solvers.text():  
-                {
-                    {self.p_box.title():
-                        {
-                            self.label_solver.text():           self.dropdown_solver.currentText(),
-                            self.label_preconditioner.text():   self.dropdown_preconditioner.currentText(),
-                            self.label_tolerance.text():        self.input_tolerance.text(),
-                            self.label_relTol.text():           self.input_relTol.text()
-                        }
-                    },
+            self.label_solvers.text():  {self.p_box.title():   {self.label_solver.text():           self.dropdown_solver.currentText(),
+                                                                 self.label_preconditioner.text():   self.dropdown_preconditioner.currentText(),
+                                                                 self.label_tolerance.text():        self.input_tolerance.text(),
+                                                                 self.label_relTol.text():           self.input_relTol.text()},
 
-                    {self.pFinal_box.title():
-                        {
-                            "":                         "$p",
-                            self.label_relTol.text():   self.input_relTol.text()
-                        }
-                    },
+                                         self.pFinal_box.title():  {"":                         "$p",
+                                                                     self.label_relTol.text():   self.input_relTol.text()},
 
-                    {self.U_box.title():
-                        {
-                            self.label_solver_U.text():           self.dropdown_solver_U.currentText(),
-                            self.label_preconditioner_U.text():   self.dropdown_preconditioner_U.currentText(),
-                            self.label_tolerance_U.text():        self.input_tolerance_U.text(),
-                            self.label_relTol_U.text():           self.input_relTol_U.text()
-                        }
-                    }
-                },
+                                         self.U_box.title():   {self.label_solver_U.text():           self.dropdown_solver_U.currentText(),
+                                                                 self.label_preconditioner_U.text():   self.dropdown_preconditioner_U.currentText(),
+                                                                 self.label_tolerance_U.text():        self.input_tolerance_U.text(),
+                                                                 self.label_relTol_U.text():           self.input_relTol_U.text()}},
             
-            self.dropdown_vuCoupling.currentText():
-                {
-                    self.label_nCorrectors.text():                  self.input_nCorrectors.text(),
-                    self.label_nNonOrthogonalCorrectors.text():     self.input_nNonOrthogonalCorrectors.text(),
-                }
+            self.dropdown_vuCoupling.currentText(): {self.label_nCorrectors.text():                  self.input_nCorrectors.text(),
+                                                     self.label_nNonOrthogonalCorrectors.text():     self.input_nNonOrthogonalCorrectors.text()}                 
         }
         
+        # Rückgabe des Dictionaries
+        return dic
