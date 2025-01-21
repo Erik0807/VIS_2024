@@ -43,7 +43,6 @@ class ofDialog(QDialog):
         \t getInput gibt den Text aus dem Eingabefeld zurück
         '''
         self.file_path = self.input_field.text()
-        self.accept()
     #=======================================================================================
 
     # Fkt. - getFilepath
