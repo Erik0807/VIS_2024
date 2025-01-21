@@ -128,130 +128,61 @@ class ofDialog(QDialog):
         \t writeDic schreibt das im Dropdown-Menü erstellte Dictionary als txt-File in den
         \t gewünschten Ordner
         '''
-        # Anlegen des Dictionaries -> je nach Tiefe des Dictionaries -> unterschiedl. Methode
-        #------------------------------------------------------------------------------------
+        # Bestimmen des Speicherorts
+        #---------------------------
+        savePath = self.getSavePath()
+
+        # Anlegen des Dictionaries
+        #-------------------------
         if self.name == "controlDict":
             dic = self.generateControlDict()
-            self.writeSimpleDic(dic)
+            with open(savePath, "w") as file:
+                self.writeDicToFile(dic, file)
 
         elif self.name == "fvSchemes":
             dic = self.generateFvSchemes()
-            self.writeComplexDic1(dic)
+            with open(savePath, "w") as file:
+                self.writeDicToFile(dic, file)
      
         elif self.name == "fvSolution":
             dic = self.generateFvSolution()
-            self.writeComplexDic2(dic)
+            with open(savePath, "w") as file:
+                self.writeDicToFile(dic, file)
     #=======================================================================================
 
-    # Fkt. - writeSimpleDic
-    #======================
-    def writeSimpleDic(self, dic):
-        '''
+    # Fkt. writeDicToFile
+    #====================
+    def writeDicToFile(self, dic, file, indent=0):
+        """
         Fkt.-Beschreibung:
-            writeSimpleDic erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
-            einfacher Dictionary-Struktur (keine Subdictionaries)
+            writeDicToFile schreibt ein verschachteltes Dictionary automatisch in die von Openfoam
+            gewünschte Form
         \n
         Input:
-            dic...Dictionary (ohne Subdictionaries)
-        '''
-        # Bestimmen des Speicherorts
-        #---------------------------
-        savePath = self.getSavePath()
+            dic...verschachteltes Dictionary \n
+            file...Name des Files (+ Pfad zum Speicherort) \n
+            indent...Gibt die Ursprungseinrückung an
+        """
+        # Schleife über Schlüssel und Werte des Dictionaries
+        #---------------------------------------------------
+        for key, value in dic.items():
+            # Abfrage ob der Wertk ein Dictionary ist -> Wenn ja: rekursiver Fkt.-Aufruf
+            if isinstance(value, dict):
+                # Formatierung für Openfoam-Form
+                file.write(" " * indent + f"{key}\n")
+                file.write(" " * indent + "{\n")
 
-        # Überschreiben / Erstellen eines txt-Files
-        #------------------------------------------
-        with open(savePath, "w") as file:
-            # Anlegen einer Liste von Zeilen
-            lines = []
-
-            # Schreiben des Headers
-            self.writeOFHeader(lines)
-
-            for key in dic:
-                # Schreiben der aktuellen Zeile
-                line = f"{key}\t\t\t{dic[key]};\n\n"
-
-                # Hinzufügen der Zeile zur Liste
-                lines.append(line)
-
-            # Schreiben aller Zeilen
-            file.writelines(lines)
+                # Rekursiver Aufruf der Fkt. (wie Schleife vorzustellen)
+                self.writeDicToFile(value, file, indent + 4)
+                
+                # Geschwungene Klammer schließen
+                file.write(" " * indent + "}\n") 
+            
+            # Wenn nicht -> Schlüssel-Wert-Paar schreiben
+            else:
+                file.write(" " * indent + f"{key} {value};\n")
     #=======================================================================================
-
-    # Fkt. - writeComplexDic1
-    #========================
-    def writeComplexDic1(self, dic):
-        '''
-        Fkt.-Beschreibung:
-            writeComplexDic1 erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
-            komplexer Dictionary-Struktur (1 Subdictionary)
-        \n
-        Input:
-            dic...Dictionary (mit 1 Subdictionary) 
-        '''
-        # Bestimmen des Speicherorts
-        #---------------------------
-        savePath = self.getSavePath()
-
-        # Überschreiben / Erstellen eines txt-Files
-        #------------------------------------------
-        with open(savePath, "w") as file:
-            # Anlegen einer Liste von Zeilen
-            lines = []
-
-            # Schreiben des Headers
-            self.writeOFHeader(lines)
-
-            for key in dic:
-                for subkey in dic[key]:
-                    # Schreiben der aktuellen Zeile
-                    line = f"{key}\n{{\n\t{subkey}\t\t{dic[key].get(subkey)};\n}}\n\n"
-
-                    # Hinzufügen der Zeile zur Liste
-                    lines.append(line)
-
-            # Schreiben aller Zeilen
-            file.writelines(lines)
-    #=======================================================================================
-
-    # Fkt. - writeComplexDic2
-    #========================
-    def writeComplexDic2(self, dic):
-        '''
-        Fkt.-Beschreibung:
-            writeComplexDic2 erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
-            komplexer Dictionary-Struktur (2 Subdictionaries)
-        \n
-        Input:
-            dic...Dictionary (mit 2 Subdictionaries) 
-        '''
-        # Bestimmen des Speicherorts
-        #---------------------------
-        savePath = self.getSavePath()
-
-        # Überschreiben / Erstellen eines txt-Files
-        #------------------------------------------
-        with open(savePath, "w") as file:
-            # Anlegen einer Liste von Zeilen
-            lines = []
-
-            # Schreiben des Headers
-            self.writeOFHeader(lines)
-
-            for key in dic:
-                for subkey in dic[key]:
-                    for subsubkey in dic[key][subkey]:
-                        # Schreiben der aktuellen Zeile
-                        line = f"{key}\n{{\n\t{subkey}\n{{{subsubkey}\t\t{dic[key][subkey].get(subsubkey)};\n}}\n}}\n\n"
-
-                        # Hinzufügen der Zeile zur Liste
-                        lines.append(line)
-
-            # Schreiben aller Zeilen
-            file.writelines(lines)
-    #=======================================================================================
-
-
+    
     # Fkt. - writeOFHeader
     #=====================
     def writeOFHeader(self, lines):
@@ -366,3 +297,118 @@ class ofDialog(QDialog):
         
         # Rückgabe des Dictionaries
         return dic
+    
+
+
+
+#=====================================================================================================
+#                   Fkt. die nicht mehr benötigt werden (nur zur Erklärung)
+#=====================================================================================================
+
+    # Fkt. - writeSimpleDic
+    #======================
+    def writeSimpleDic(self, dic):
+        '''
+        Fkt.-Beschreibung:
+            writeSimpleDic erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
+            einfacher Dictionary-Struktur (keine Subdictionaries)
+        \n
+        Input:
+            dic...Dictionary (ohne Subdictionaries)
+        '''
+        # Bestimmen des Speicherorts
+        #---------------------------
+        savePath = self.getSavePath()
+
+        # Überschreiben / Erstellen eines txt-Files
+        #------------------------------------------
+        with open(savePath, "w") as file:
+            # Anlegen einer Liste von Zeilen
+            lines = []
+
+            # Schreiben des Headers
+            self.writeOFHeader(lines)
+
+            for key in dic:
+                # Schreiben der aktuellen Zeile
+                line = f"{key}\t\t\t{dic[key]};\n\n"
+
+                # Hinzufügen der Zeile zur Liste
+                lines.append(line)
+
+            # Schreiben aller Zeilen
+            file.writelines(lines)
+    #=======================================================================================
+
+    # Fkt. - writeComplexDic1
+    #========================
+    def writeComplexDic1(self, dic):
+        '''
+        Fkt.-Beschreibung:
+            writeComplexDic1 erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
+            komplexer Dictionary-Struktur (1 Subdictionary)
+        \n
+        Input:
+            dic...Dictionary (mit 1 Subdictionary) 
+        '''
+        # Bestimmen des Speicherorts
+        #---------------------------
+        savePath = self.getSavePath()
+
+        # Überschreiben / Erstellen eines txt-Files
+        #------------------------------------------
+        with open(savePath, "w") as file:
+            # Anlegen einer Liste von Zeilen
+            lines = []
+
+            # Schreiben des Headers
+            self.writeOFHeader(lines)
+
+            for key in dic:
+                for subkey in dic[key]:
+                    # Schreiben der aktuellen Zeile
+                    line = f"{key}\n{{\n\t{subkey}\t\t{dic[key].get(subkey)};\n}}\n\n"
+
+                    # Hinzufügen der Zeile zur Liste
+                    lines.append(line)
+
+            # Schreiben aller Zeilen
+            file.writelines(lines)
+    #=======================================================================================
+
+    # Fkt. - writeComplexDic2
+    #========================
+    def writeComplexDic2(self, dic):
+        '''
+        Fkt.-Beschreibung:
+            writeComplexDic2 erledigt das Öffnen und zeilenweise Schreiben von Dictionaries bei
+            komplexer Dictionary-Struktur (2 Subdictionaries)
+        \n
+        Input:
+            dic...Dictionary (mit 2 Subdictionaries) 
+        '''
+        # Bestimmen des Speicherorts
+        #---------------------------
+        savePath = self.getSavePath()
+
+        # Überschreiben / Erstellen eines txt-Files
+        #------------------------------------------
+        with open(savePath, "w") as file:
+            # Anlegen einer Liste von Zeilen
+            lines = []
+
+            # Schreiben des Headers
+            self.writeOFHeader(lines)
+
+            for key in dic:
+                for subkey in dic[key]:
+                    for subsubkey in dic[key][subkey]:
+                        # Schreiben der aktuellen Zeile
+                        line = f"{key}\n{{\n\t{subkey}\n{{{subsubkey}\t\t{dic[key][subkey].get(subsubkey)};\n}}\n}}\n\n"
+
+                        # Hinzufügen der Zeile zur Liste
+                        lines.append(line)
+
+            # Schreiben aller Zeilen
+            file.writelines(lines)
+    #=======================================================================================
