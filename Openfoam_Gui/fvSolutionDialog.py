@@ -188,6 +188,16 @@ class fvSolutionDialog(ofDialog):
         self.input_nCorrectors = QLineEdit()
         self.input_nCorrectors.setPlaceholderText("2")
         self.layout().insertWidget(7, self.input_nCorrectors)
+        #----------------------------------------------------------------------------------
+
+        # nNonOrthogonalCorrectors
+        #-------------------------
+        self.label_nNonOrthogonalCorrectors = QLabel("nNonOrthogonalCorrectors")
+        self.layout().insertWidget(8, self.label_nNonOrthogonalCorrectors)
+        self.input_nNonOrthogonalCorrectors = QLineEdit()
+        self.input_nNonOrthogonalCorrectors.setPlaceholderText("0")
+        self.layout().insertWidget(9, self.input_nNonOrthogonalCorrectors)
+        #----------------------------------------------------------------------------------
 
         # Buttonverbindungen
         self.ok_button.clicked.connect(self.writeDic)

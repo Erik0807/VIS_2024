@@ -377,13 +377,8 @@ class ofDialog(QDialog):
             
             self.dropdown_vuCoupling.currentText():
                 {
-                    self.label_nCorrectors.text():      self.input_nCorrectors.text(),
+                    self.label_nCorrectors.text():                  self.input_nCorrectors.text(),
+                    self.label_nNonOrthogonalCorrectors.text():     self.input_nNonOrthogonalCorrectors.text(),
                 }
-
-                
-                
-
-            
-
         }
         
