@@ -163,14 +163,20 @@ class fvSolutionDialog(ofDialog):
         self.layout().insertWidget(2, self.pFinal_box)
         self.layout().insertWidget(3, self.U_box)
 
-        # Label als Überschrift für Application-Menü
-        #===========================================
+        # Label als Überschrift für vU-coupling
+        #======================================
         self.label_vU_coupling = QLabel("velocity-pressure coupling")
         font = QFont()
         font.setPointSize(12)
         font.setBold(True)
         self.label_vU_coupling.setFont(font)
         self.layout().insertWidget(4, self.label_vU_coupling)
+
+        # Dropdown-Menüs vU-coupling
+        #===========================
+        self.dropdown_vuCoupling = QComboBox()
+        self.dropdown_vuCoupling.addItems(["SIMPLE", "SIMPLEC", "PISO", "PIMPLE"])
+        self.layout().insertWidget(5, self.dropdown_vuCoupling)
 
         # Buttonverbindungen
         self.ok_button.clicked.connect(self.writeDic)
