@@ -48,15 +48,26 @@ class fvSolutionDialog(ofDialog):
         self.dropdown_preconditioner.addItems(["DIC", "DILU"])
         #----------------------------------------------------------------------------------
 
+        # tolerance
+        #----------
+        self.label_tolerance = QLabel("tolerance")
+        self.input_tolerance = QLineEdit()
+        self.input_tolerance.setPlaceholderText("1e-06")
+        #----------------------------------------------------------------------------------
 
 
         # Layout für Gruppierung um p
         #----------------------------
         layout_p = QVBoxLayout()
+
         layout_p.addWidget(self.label_solver)
         layout_p.addWidget(self.dropdown_solver)
+
         layout_p.addWidget(self.label_preconditioner)
         layout_p.addWidget(self.dropdown_preconditioner)
+        
+        layout_p.addWidget(self.label_tolerance)
+        layout_p.addWidget(self.input_tolerance)
 
         # Anlegen der p-Box
         #------------------
