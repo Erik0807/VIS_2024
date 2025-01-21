@@ -363,8 +363,22 @@ class ofDialog(QDialog):
                             "":                         "$p",
                             self.label_relTol.text():   self.input_relTol.text()
                         }
+                    },
+
+                    {self.U_box.title():
+                        {
+                            self.label_solver_U.text():           self.dropdown_solver_U.currentText(),
+                            self.label_preconditioner_U.text():   self.dropdown_preconditioner_U.currentText(),
+                            self.label_tolerance_U.text():        self.input_tolerance_U.text(),
+                            self.label_relTol_U.text():           self.input_relTol_U.text()
+                        }
                     }
                 },
+            
+            self.dropdown_vuCoupling.currentText():
+                {
+                    self.label_nCorrectors.text():      self.input_nCorrectors.text(),
+                }
 
                 
                 

@@ -174,9 +174,20 @@ class fvSolutionDialog(ofDialog):
 
         # Dropdown-Menüs vU-coupling
         #===========================
+        # vU-Coupling
+        #------------
         self.dropdown_vuCoupling = QComboBox()
         self.dropdown_vuCoupling.addItems(["SIMPLE", "SIMPLEC", "PISO", "PIMPLE"])
         self.layout().insertWidget(5, self.dropdown_vuCoupling)
+        #----------------------------------------------------------------------------------
+
+        # nCorrectors
+        #------------
+        self.label_nCorrectors = QLabel("nCorrectors")
+        self.layout().insertWidget(6, self.label_nCorrectors)
+        self.input_nCorrectors = QLineEdit()
+        self.input_nCorrectors.setPlaceholderText("2")
+        self.layout().insertWidget(7, self.input_nCorrectors)
 
         # Buttonverbindungen
         self.ok_button.clicked.connect(self.writeDic)
