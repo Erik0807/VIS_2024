@@ -1,7 +1,8 @@
 # Einlesen benötigte Bibliotheken
 #================================
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMenuBar, QDialog, QHBoxLayout,
-                               QVBoxLayout, QLabel, QPushButton, QLineEdit, QComboBox)
+                               QVBoxLayout, QLabel, QPushButton, QLineEdit, QComboBox,
+                               QGroupBox)
 from PySide6.QtGui import QAction, QKeySequence, QFont
 from PySide6.QtCore import Slot
 from ofDialog import ofDialog
@@ -22,7 +23,8 @@ class fvSolutionDialog(ofDialog):
         self.setWindowTitle("fvSolution")
         self.name = self.windowTitle()
 
-        # Buttons für Solver-Submenü
+        # Label als Überschrift für Solver-Menü
+        #======================================
         self.label_solvers = QLabel("solvers")
         font = QFont()
         font.setPointSize(12)
@@ -32,9 +34,24 @@ class fvSolutionDialog(ofDialog):
 
         # Erzeugen der Dropdown-Menüs für die Dictionary-Einträge
         #========================================================
-        # ddtSchemes
+        # divSchemes
         #-----------
+        self.label_solver = QLabel("solver")
+        self.dropdown_solver = QComboBox()
+        self.dropdown_solver.addItems(["PCG", "PBiCGStab"])
+        #----------------------------------------------------------------------------------
 
+        # Layout für Gruppierung um p
+        #----------------------------
+        layout_p = QVBoxLayout()
+        layout_p.addWidget(self.label_solver)
+        layout_p.addWidget(self.dropdown_solver)
+
+        p_box = QGroupBox("p")
+        p_box.setLayout(layout_p)
+
+        # Layout von p zu Gesamtlayout
+        self.layout().insertWidget(1, p_box)
 
         # Buttonverbindungen
         self.ok_button.clicked.connect(self.writeDic)
