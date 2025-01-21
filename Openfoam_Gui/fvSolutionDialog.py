@@ -38,14 +38,14 @@ class fvSolutionDialog(ofDialog):
         #-------
         self.label_solver = QLabel("solver")
         self.dropdown_solver = QComboBox()
-        self.dropdown_solver.addItems(["PCG", "PBiCGStab"])
+        self.dropdown_solver.addItems(["GAMG", "PCG", "PBiCG","PBiCGStab", "smoothSolver", "diagonalSolver"])
         #----------------------------------------------------------------------------------
 
         # preconditioner
         #---------------
         self.label_preconditioner = QLabel("preconditioner")
         self.dropdown_preconditioner = QComboBox()
-        self.dropdown_preconditioner.addItems(["DIC", "DILU"])
+        self.dropdown_preconditioner.addItems(["DIC", "DILU", "FDIC", "GAMG", "diagonal", "noPreconditioner"])
         #----------------------------------------------------------------------------------
 
         # tolerance
@@ -112,14 +112,14 @@ class fvSolutionDialog(ofDialog):
         #-------
         self.label_solver_U = QLabel("solver")
         self.dropdown_solver_U = QComboBox()
-        self.dropdown_solver_U.addItems(["PCG", "PBiCGStab"])
+        self.dropdown_solver_U.addItems(["GAMG", "PCG", "PBiCG","PBiCGStab", "smoothSolver", "diagonalSolver"])
         #----------------------------------------------------------------------------------
 
         # preconditioner
         #---------------
         self.label_preconditioner_U = QLabel("preconditioner")
         self.dropdown_preconditioner_U = QComboBox()
-        self.dropdown_preconditioner_U.addItems(["DIC", "DILU"])
+        self.dropdown_preconditioner_U.addItems(["DIC", "DILU", "FDIC", "GAMG", "diagonal", "noPreconditioner"])
         #----------------------------------------------------------------------------------
 
         # tolerance
